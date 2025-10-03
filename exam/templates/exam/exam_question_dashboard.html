@@ -1,0 +1,45 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-4">Exam Dashboard</h2>
+
+    <div class="row">
+        {% for exam in exams %}
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ exam.title }}</h5>
+                    <p class="card-text">{{ exam.description|truncatewords:20 }}</p>
+                    <p><strong>Date:</strong> {{ exam.date }}</p>
+                    <p><strong>Total Marks:</strong> {{ exam.total_marks }}</p>
+
+                    <!-- Role-based buttons -->
+                    {% if user.role == 'admin' %}
+                        <a href="{% url 'question_list' exam.id %}" class="btn btn-primary btn-sm">View Questions</a>
+                        <a href="{% url 'edit_exam' exam.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'delete_exam' exam.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    {% elif user.role == 'teacher' %}
+                        <a href="{% url 'question_list' exam.id %}" class="btn btn-primary btn-sm">View Questions</a>
+                        <a href="{% url 'edit_exam' exam.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'delete_exam' exam.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">No exams available.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Add Exam Button -->
+    <div class="text-center mt-4">
+        {% if user.role == 'admin' %}
+            <a href="{% url 'add_exam' %}" class="btn btn-success">Add Exam</a>
+        {% elif user.role == 'teacher' %}
+            <a href="{% url 'add_exam' %}" class="btn btn-success">Create Exam</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

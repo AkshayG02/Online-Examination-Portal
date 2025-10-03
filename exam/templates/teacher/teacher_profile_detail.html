@@ -1,0 +1,33 @@
+{% extends 'accounts/base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>My Profile Details</h2>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Full Name</th>
+            <td>{{ profile.full_name }}</td>
+        </tr>
+        <tr>
+            <th>Bio</th>
+            <td>{{ profile.bio }}</td>
+        </tr>
+        <tr>
+            <th>Subject</th>
+            <td>{{ profile.subject }}</td>
+        </tr>
+        <tr>
+            <th>Profile Picture</th>
+            <td>
+                {% if profile.profile_picture %}
+                    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" width="100">
+                {% else %}
+                    <em>No picture uploaded</em>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+    <a href="{% url 'teacher_profile' %}" class="btn btn-primary">Edit Profile</a>
+</div>
+{% endblock %}

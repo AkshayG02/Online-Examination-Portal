@@ -1,0 +1,56 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<h2>Submissions for {{ exam.title }}</h2>
+
+<!-- Filter Form -->
+<form method="get" class="mb-3 form-inline">
+    <input
+        type="number"
+        name="score_min"
+        placeholder="Min Score"
+        value="{{ score_min }}"
+        class="form-control mr-2"
+        min="0"
+        max="100"
+    >
+    <input
+        type="date"
+        name="date_from"
+        value="{{ date_from }}"
+        class="form-control mr-2"
+    >
+    <button type="submit" class="btn btn-primary">Filter</button>
+    <a href="{% url 'view_submissions' exam.id %}" class="btn btn-secondary ml-2">Clear</a>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Score</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for attempt in attempts %}
+        <tr>
+            <td>{{ attempt.student.username }}</td>
+            <td>{{ attempt.score }}%</td>
+            <td>{{ attempt.submitted_at|date:"Y-m-d H:i" }}</td>
+
+            <td>
+                <a href="{% url 'view_student_answers' attempt.id %}" class="btn btn-sm btn-info">
+                    View Answers
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No submissions yet.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

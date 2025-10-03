@@ -1,0 +1,24 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<h2>Answers by {{ attempt.student.username }}</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Question</th>
+            <th>Selected Option</th>
+            <th>Correct Option</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ans in answers %}
+        <tr>
+            <td>{{ ans.question.question_text }}</td>
+            <td>{{ ans.get_selected_option_display }}</td>
+            <td>{{ ans.question.get_correct_option_display }}</td>
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

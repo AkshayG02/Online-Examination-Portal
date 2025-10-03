@@ -1,0 +1,56 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+  <!-- Exam Title -->
+  <h2 class="mb-4 text-center" style="
+      font-weight: bold;
+      background: linear-gradient(45deg, #0ebde4, transparent, #0844d5);
+      padding: 10px 20px;
+      display: inline-block;
+      border-radius: 2rem;
+      border: 2px solid #0844d5;
+      box-shadow: 3px 4px 5px black;
+  ">
+    {{ exam.title }}
+  </h2>
+
+  <!-- Exam Card -->
+  <div class="card shadow-sm mt-4">
+    <div class="card-body">
+      <!-- Instructions -->
+      <h5 class="card-title mb-3"><strong>Instructions</strong></h5>
+      <p class="card-text" style="white-space: pre-line;">
+        {{ exam.description|linebreaksbr }}
+      </p>
+
+      <hr>
+
+      <!-- Exam Details -->
+      <p><strong>Duration:</strong> {{ exam.duration }} minutes</p>
+      <p><strong>Date:</strong> {{ exam.date }}</p>
+
+      <!-- Action Buttons -->
+      <div class="mt-4 d-flex gap-2">
+        <!-- Start Exam Button -->
+        <a href="{% url 'attempt_exam' exam.id %}" class="btn btn-primary flex-grow-1">
+          Start Exam
+        </a>
+
+        <!-- View My Results Button -->
+        {% if latest_attempt %}
+          <a href="{% url 'student_exam_result' latest_attempt.id %}" class="btn btn-success flex-grow-1">
+            View My Results
+          </a>
+        {% else %}
+          <button class="btn btn-success flex-grow-1" disabled>
+            View My Results
+          </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

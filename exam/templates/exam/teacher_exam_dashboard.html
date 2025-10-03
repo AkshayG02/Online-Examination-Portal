@@ -1,0 +1,39 @@
+{% extends 'accounts/base.html' %}
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-4">My Exams</h2>
+
+    <div class="text-end mb-3">
+        <a href="{% url 'create_exam' %}" class="btn btn-success">+ Create New Exam</a>
+    </div>
+
+    {% if exams %}
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Total Marks</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for exam in exams %}
+            <tr>
+                <td>{{ exam.title }}</td>
+                <td>{{ exam.date }}</td>
+                <td>{{ exam.total_marks }}</td>
+                <td>
+                    <a href="{% url 'teacher_question_list' exam.id %}" class="btn btn-primary btn-sm">Questions</a>
+                    <a href="{% url 'teacher_edit_exam' exam.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'teacher_delete_exam' exam.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="text-center">No exams created yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

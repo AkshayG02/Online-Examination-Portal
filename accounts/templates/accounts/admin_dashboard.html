@@ -1,0 +1,74 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4 fw-bold">✨ Admin Dashboard</h2>
+
+    <div class="row g-4">
+        <!-- Manage Users -->
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0 h-100 dashboard-card user-card">
+                <div class="card-body text-center">
+                    <i class="bi bi-people-fill display-4 text-primary mb-3"></i>
+                    <h5 class="card-title fw-bold">Manage Users</h5>
+                    <p class="card-text text-muted">Add, Edit, and Remove Users</p>
+                    <a href="{% url 'user_list' %}" class="btn btn-primary w-100">👥 Go to Users</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Exams -->
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0 h-100 dashboard-card exam-card">
+                <div class="card-body text-center">
+                    <i class="bi bi-journal-text display-4 text-secondary mb-3"></i>
+                    <h5 class="card-title fw-bold">Manage Exams</h5>
+                    <p class="card-text text-muted">Create, Edit, and Delete Exams</p>
+                    <a href="{% url 'teacher_dashboard' %}" class="btn btn-secondary w-100">📘 Go to Exams</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Submissions -->
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0 h-100 dashboard-card submission-card">
+                <div class="card-body text-center">
+                    <i class="bi bi-file-earmark-text-fill display-4 text-success mb-3"></i>
+                    <h5 class="card-title fw-bold">Student Submissions</h5>
+                    <p class="card-text text-muted">View Exam Attempts & Results</p>
+                    <a href="{% url 'student_exam_list' %}" class="btn btn-success w-100">📑 View Submissions</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Teachers -->
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0 h-100 dashboard-card teacher-card">
+                <div class="card-body text-center">
+                    <i class="bi bi-person-badge-fill display-4 text-warning mb-3"></i>
+                    <h5 class="card-title fw-bold">Manage Teachers</h5>
+                    <p class="card-text text-muted">Add, Edit, and Remove Teachers</p>
+                    <a href="{% url 'teacher_profile_detail' %}" class="btn btn-warning w-100">👨‍🏫 View Teachers</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Styles -->
+<style>
+    .dashboard-card {
+        border-radius: 15px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    }
+    .dashboard-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .user-card { background: linear-gradient(135deg, #e3f2fd, #ffffff); }
+    .exam-card { background: linear-gradient(135deg, #f1f1f1, #e9ecef); }
+    .submission-card { background: linear-gradient(135deg, #e8f5e9, #ffffff); }
+    .teacher-card { background: linear-gradient(135deg, #fff8e1, #ffffff); }
+</style>
+{% endblock %}

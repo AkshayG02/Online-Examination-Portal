@@ -1,0 +1,25 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <h2>My Profile</h2>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+
+    <br>
+    <a href="{% url 'delete_teacher_profile' %}" class="btn btn-danger">Delete Profile</a>
+    <br>
+    <a href="{% url 'teacher_profile_detail' %}" class="btn btn-info my-3 ">View My Profile</a>
+
+</div>
+{% endblock %}

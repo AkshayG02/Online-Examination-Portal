@@ -1,0 +1,40 @@
+{% extends 'accounts/base.html' %}
+{% block content %}
+<h2>My Exam History</h2>
+
+{% if attempts %}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Exam</th>
+            <th>Score</th>
+            <th>Submitted At</th>
+            <th>View Result</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for attempt in attempts %}
+        <tr>
+            <td>{{ attempt.exam.title }}</td>
+            <td>{{ attempt.score }}%</td>
+            <td>{{ attempt.submitted_at }}</td>
+            <td>
+                <a href="{% url 'student_exam_result' attempt.id %}" class="btn btn-sm btn-primary">View</a>
+            </td>
+            <td>
+                <form action="{% url 'delete_student_exam_attempt' attempt.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this attempt?');">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p>You have not attempted any exams yet.</p>
+{% endif %}
+
+<a href="{% url 'student_exam_list' %}" class="btn btn-secondary">Back to Exam List</a>
+{% endblock %}

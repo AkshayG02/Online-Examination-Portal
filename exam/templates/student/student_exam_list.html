@@ -1,0 +1,37 @@
+{% extends 'accounts/base.html' %}
+{% block content %}
+
+<h2 class="mb-4">Available Exams</h2>
+
+{% if exams %}
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Total Marks</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for exam in exams %}
+        <tr>
+            <td>{{ exam.title }}</td>
+            <td>{{ exam.description }}</td>
+            <td>{{ exam.date|date:"M d, Y" }}</td>
+            <td>{{ exam.total_marks }}</td>
+            <td>
+                <a href="{% url 'attempt_exam' exam.id %}" class="btn btn-primary btn-sm">Attempt Exam</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="alert alert-info" role="alert">
+    No exams available at the moment.
+</div>
+{% endif %}
+
+{% endblock %}
